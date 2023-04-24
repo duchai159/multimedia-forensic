@@ -8,14 +8,18 @@ class Detect(object):
         self.image = cv2.imread(input)
 
     def siftDetector(self):
+        # Khởi tạo đối tượng SIFT
         sift = cv2.SIFT_create()
-        # sift = cv2.xfeatures2d.SIFT_create()
+        # Chuyển ảnh sang đen trắng
         gray = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
+        # Tìm kiếm các đặc trưng trong ảnh và tạo ra các mô tả tương ứng
         self.key_points, self.descriptors = sift.detectAndCompute(gray, None)
         return self.key_points, self.descriptors
 
     def showSiftFeatures(self):
+        # Chuyển sang ảnh đen trắng
         gray_image = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
+        # Vẽ các điểm đặc trưng trên ảnh gốc
         sift_image = cv2.drawKeypoints(
             self.image, self.key_points, self.image.copy())
         return sift_image
@@ -43,7 +47,7 @@ class Detect(object):
                     # cv2.line(forgery, points[0], points[idx1], (255, 0, 0), 5)
         return forgery
 if __name__ == "__main__":
-    detector = Detect('/home/hai/Downloads/Image_Manipulation_Detection_System_Python/input/CFA-Artifact Detection/5.jpg')
+    detector = Detect('/home/hai/KTLT/img/6.jpg')
     key_points, descriptors = detector.siftDetector()
     sift_image = detector.showSiftFeatures()
     forgery_image = detector.locateForgery()

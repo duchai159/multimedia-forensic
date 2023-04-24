@@ -23,6 +23,7 @@ def mouse_callback(event, x, y, flags, param):
 
 cv2.namedWindow('Original Image', cv2.WINDOW_NORMAL)
 cv2.setMouseCallback('Original Image', mouse_callback)
+
 plate_pts = []
 while len(plate_pts) < 4:
     cv2.imshow('Original Image', img)
@@ -39,7 +40,7 @@ gray = cv2.cvtColor(warp_img, cv2.COLOR_BGR2GRAY)
 
 gray = cv2.equalizeHist(gray)
 warp_img = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
-warp_img = cv2.resize(warp_img, None, fx=2, fy=2, interpolation=cv2.INTER_LANCZOS4)
+warp_img = cv2.resize(warp_img, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
 
 cv2.imshow('Warped Image', warp_img)
 cv2.waitKey(0)
